@@ -1,21 +1,22 @@
 return {
+    name = "Nord Light",  -- Add a name for WezTerm to recognize
   colors = {
-    foreground = "#3B4252",
-    background = "#ECEFF4",
+    foreground = "#445c6e",
+    background = "#ffffff",
     cursor_bg = "#008374",
     cursor_fg = "#ECEFF4",
     cursor_border = "#008374",
-    selection_fg = "#2E3440",
+    -- selection_fg = "#2E3440",
     selection_bg = "#D8DEE9",
-    scrollbar_thumb = "#A3BE8C",
-    split = "#A3BE8C",
+    scrollbar_thumb = "#00a78e",
+    split = "#00a78e",
     ansi = {
-      "#4C566A", "#BF616A", "#A3BE8C", "#ffb900",
-      "#008374", "#B48EAD", "#88C0D0", "#ECEFF4"
+      "#4C566A", "#ed4245", "#00a78e", "#fdb94e",
+      "#004977", "#d0006f", "#2dde98", "#9ba5a8"
     },
     brights = {
-      "#2E3440", "#BF616A", "#A3BE8C", "#ffb900",
-      "#008374", "#B48EAD", "#8FBCBB", "#D8DEE9"
+      "#2E3440", "#BF616A", "#00a78e", "#fdb94e",
+      "#004977", "#910048", "#2dde98", "#f5f5f5"
     },
   }
 }
