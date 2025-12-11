@@ -5,7 +5,7 @@ local __THEME_DIR__ = os.getenv("HOME") .. "/.wezterm/themes/"
 package.path = package.path .. ";" .. __THEME_DIR__ .. "?.lua"
 local dark_theme = require("nord-dark")
 local config = wezterm.config_builder()
-
+config.bold_brightens_ansi_colors = "No"
 config.colors = dark_theme.colors
 config.cursor_blink_rate = 300
 config.default_cursor_style = "BlinkingBlock"
@@ -56,5 +56,4 @@ config.keys = {
     action = wezterm.action.TogglePaneZoomState,
   },
 }
-
 return config
