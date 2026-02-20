@@ -2,7 +2,7 @@ return {
     name = "Nord Dark",  -- Add a name for WezTerm to recognize
     colors = {
     foreground = "#D8DEE9",
-    background = "#262A33",
+    background = "#121417",
     cursor_bg = "#88C0D0",
     cursor_fg = "#2E3440",
     cursor_border = "#88C0D0",

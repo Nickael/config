@@ -20,7 +20,7 @@ Before installing, ensure your macOS system has the following core utilities ins
 2. **Git**: Required to clone this repository and download plugins.
 3. **Homebrew**: The package manager used for almost all tooling.
     ```bash
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nickael/wezterm/main/tools/install.sh)"
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/Nickael/config/main/tools/install.sh)"
     ```
 
 ### Required CLI Tools
