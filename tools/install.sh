@@ -4,7 +4,7 @@ set -e
 
 # --- Main Repo Config ---
 REPO_URL="https://github.com/nickael/wezterm.git"
-TARGET_DIR="$HOME/.dotfiles"
+TARGET_DIR="$HOME/.dotfiles/"
 SHELL_DIR="$TARGET_DIR/shell"
 ZSHRC_SOURCE="$SHELL_DIR/zshrc.zsh"
 
@@ -19,9 +19,11 @@ echo "🚀 Starting remote ZSH configuration install..."
 
 # 1. Clone or Backup the Main Repository
 if [ -d "$TARGET_DIR" ]; then
-  BACKUP_DIR="${TARGET_DIR}_bak_${CURRENT_DATETIME}"
-  echo "📂 Repository exists. Backing up current setup to $BACKUP_DIR..."
-  mv "$TARGET_DIR" "$BACKUP_DIR"
+  BACKUP_FILE="${TARGET_DIR}_bak_${CURRENT_DATETIME}.tar.gz"
+  echo "📂 Repository exists. Compressing current setup to $BACKUP_FILE..."
+  # Compress relative to the parent directory to keep the archive clean
+  tar -czf "$BACKUP_FILE" -C "$(dirname "$TARGET_DIR")" "$(basename "$TARGET_DIR")"
+  rm -rf "$TARGET_DIR"
 fi
 
 echo "🌐 Cloning a clean repository to $TARGET_DIR..."
@@ -30,9 +32,10 @@ git clone "$REPO_URL" "$TARGET_DIR"
 
 # 2. Clone or Backup the Oh My Posh Theme
 if [ -d "$THEME_DIR" ]; then
-  THEME_BACKUP="${THEME_DIR}_bak_${CURRENT_DATETIME}"
-  echo "🎨 Theme directory exists. Backing up to $THEME_BACKUP..."
-  mv "$THEME_DIR" "$THEME_BACKUP"
+  THEME_BACKUP="${THEME_DIR}_bak_${CURRENT_DATETIME}.tar.gz"
+  echo "🎨 Theme directory exists. Compressing to $THEME_BACKUP..."
+  tar -czf "$THEME_BACKUP" -C "$(dirname "$THEME_DIR")" "$(basename "$THEME_DIR")"
+  rm -rf "$THEME_DIR"
 fi
 
 echo "🎨 Cloning a clean Oh My Posh theme to $THEME_DIR..."
@@ -47,9 +50,10 @@ fi
 # 3. Setup Current User
 echo "👤 Configuring for user: $USER..."
 if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
-  ZSHRC_BACKUP="$HOME/.zshrc_bak_${CURRENT_DATETIME}"
-  echo "💾 Backing up existing $HOME/.zshrc to $ZSHRC_BACKUP"
-  mv "$HOME/.zshrc" "$ZSHRC_BACKUP"
+  ZSHRC_BACKUP="$HOME/.zshrc_bak_${CURRENT_DATETIME}.tar.gz"
+  echo "💾 Compressing existing $HOME/.zshrc to $ZSHRC_BACKUP"
+  tar -czf "$ZSHRC_BACKUP" -C "$HOME" ".zshrc"
+  rm -f "$HOME/.zshrc"
 fi
 
 # Link the directory and the entry point
@@ -63,9 +67,10 @@ read -r -p "❓ Do you want to configure the root account as well? [y/N] " confi
 if [[ "$config_root" =~ ^[Yy]$ ]]; then
   echo "🔒 Configuring for root (will prompt for password)..."
   if sudo [ -f "/var/root/.zshrc" ] && sudo [ ! -L "/var/root/.zshrc" ]; then
-    ROOT_ZSHRC_BACKUP="/var/root/.zshrc_bak_${CURRENT_DATETIME}"
-    echo "💾 Backing up existing root .zshrc to $ROOT_ZSHRC_BACKUP"
-    sudo mv "/var/root/.zshrc" "$ROOT_ZSHRC_BACKUP"
+    ROOT_ZSHRC_BACKUP="/var/root/.zshrc_bak_${CURRENT_DATETIME}.tar.gz"
+    echo "💾 Compressing existing root .zshrc to $ROOT_ZSHRC_BACKUP"
+    sudo tar -czf "$ROOT_ZSHRC_BACKUP" -C "/var/root" ".zshrc"
+    sudo rm -f "/var/root/.zshrc"
   fi
 
   # Link the directory and the entry point for root
