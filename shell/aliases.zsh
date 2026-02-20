@@ -26,8 +26,6 @@ if [[ "$os_name" == "Linux" ]]; then
 
     alias po="sudo poweroff"
     alias re="sudo reboot"
-
-else
 fi
 
 if hash vim 2> /dev/null; then
